@@ -1,27 +1,23 @@
-import { useState } from 'react';
-import { Alert, Button, StyleSheet, Text, View } from 'react-native';
+import { DarkTheme, NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
+import CartScreen from './screens/CartScreen';
+import HomeScreen from './screens/HomeScreen';
+import ProductScreen from './screens/ProductScreen';
+import ProfileScreen from './screens/ProfileScreen';
+
+const Stack = createNativeStackNavigator();
 
 export default function App() {
-  const [count, setCount] = useState(0);
-
-  const handlePress = () => {
-    setCount(count + 1);
-    Alert.alert('Button Pressed!', `Count is now ${count + 1}`);
-  };
-
   return (
-    <View style={styles.container}>
-      <Text>Welcome to E-commerce App!</Text>
-      <Text style={{ marginTop: 10 }}>Button pressed {count} times</Text>
-      <Button title="Press Me" onPress={handlePress} />
-    </View>
+    <NavigationContainer theme={DarkTheme}>
+      <Stack.Navigator initialRouteName="Home">
+        <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="Product" component={ProductScreen} />
+        <Stack.Screen name="Cart" component={CartScreen} />
+        <Stack.Screen name="Profile" component={ProfileScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-});
